@@ -9,12 +9,12 @@ import codecs
 
 # if __name__ == '__main__':
 #     corpus = []
-#     f = codecs.open("D:/workspaceR/news_spam.csv", "r", "utf-8")  
+#     f = codecs.open("D:/workspaceR/news_spam.csv", "r", "utf-8")
 #     f1 = codecs.open("D:/workspaceR/news_spam_jieba.csv", "w", "utf-8")
 #     count = 0
-#     while True:  
-#         line = f.readline()  
-#         if line:  
+#     while True:
+#         line = f.readline()
+#         if line:
 #             count = count + 1
 #             line = line.split(",")
 #             s = line[1]
@@ -29,7 +29,7 @@ import codecs
 #             f1.write(',')
 #             f1.write(sentence)
 #             f1.write('\n')
-#         else:  
+#         else:
 #             break
 #     f.close()
 #     f1.close()
@@ -94,9 +94,11 @@ if __name__ == '__main__':
 
     # vocabulary=vectorizer.vocabulary_ 只计算上面vectorizer中单词的tf(term frequency 词频)
     vectorizer2 = CountVectorizer(vocabulary=vectorizer.vocabulary_)
+    # vectorizer2 = CountVectorizer()
     fea_test = vectorizer2.fit_transform(corpus_test)
-    print(vectorizer2.get_feature_names())
-    print(fea_test.toarray())
+    # fea_test = vectorizer.fit_transform(corpus_test)
+    print("vectorizer2.get_feature_names()",vectorizer2.get_feature_names())
+    print("fea_test.toarray()",fea_test.toarray())
 
     # create the Multinomial Naive Bayesian Classifier
     # alpha = 1 拉普拉斯估计给每个单词个数加1
