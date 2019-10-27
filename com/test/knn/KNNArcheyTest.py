@@ -62,17 +62,6 @@ def file2matrix(filename):
         index += 1
     return returnMat, classLabelVector
 
-
-'''
-    将训练集中的数据进行归一化
-    归一化的目的：
-        训练集中飞行公里数这一维度中的值是非常大，那么这个纬度值对于最终的计算结果(两点的距离)影响是非常大，
-        远远超过其他的两个维度对于最终结果的影响
-    实际约会姑娘认为这三个特征是同等重要的
-    下面使用最大最小值归一化的方式将训练集中的数据进行归一化
-'''
-
-
 # 将数据归一化
 def autoNorm(dataSet):
     #     dataSet.min(0)   代表的是统计这个矩阵中每一列的最小值     返回值是一个矩阵1*3矩阵
@@ -99,7 +88,7 @@ def autoNorm(dataSet):
 
 def datingClassM():
     rate = 0.1
-    datingDataMat, datingLabels = file2matrix('./datingTestSet.txt')
+    datingDataMat, datingLabels = file2matrix('./archeyTestSet.txt')
     # 将数据归一化
     normMat, ranges, minVals = autoNorm(datingDataMat)
     # m 是 ： normMat行数 = 1000
@@ -120,62 +109,15 @@ def datingClassM():
     return 1 - errorRate
 
 
-'''
-    拿到每条样本的飞行里程数和玩视频游戏所消耗的时间百分比这两个维度的值，使用散点图
-'''
-
-
-def createScatterDiagram():
-    datingDataMat, datingLabels = file2matrix('datingTestSet2.txt')
-    type1_x = []
-    type1_y = []
-    type2_x = []
-    type2_y = []
-    type3_x = []
-    type3_y = []
-    # 生成一个新的图像
-    fig = plt.figure()
-    # matplotlib下, 一个 Figure 对象可以包含多个子图(Axes), 可以使用 subplot() 快速绘制
-    # subplot(numRows, numCols, plotNum)图表的整个绘图区域被分成 numRows 行和 numCols 列,按照从左到右，从上到下的顺序对每个子区域进行编号，左上的子区域的编号为1
-    # plt.subplot(111)等价于plt.subplot(1,1,1)
-    axes = plt.subplot(111)
-    # 设置字体 黑体  ，用来正常显示中文标签
-    plt.rcParams['font.sans-serif'] = ['SimHei']
-
-    for i in range(len(datingLabels)):
-        if datingLabels[i] == 1:  # 不喜欢
-            type1_x.append(datingDataMat[i][0])
-            type1_y.append(datingDataMat[i][1])
-
-        if datingLabels[i] == 2:  # 魅力一般
-            type2_x.append(datingDataMat[i][0])
-            type2_y.append(datingDataMat[i][1])
-
-        if datingLabels[i] == 3:  # 极具魅力
-            type3_x.append(datingDataMat[i][0])
-            type3_y.append(datingDataMat[i][1])
-
-    # 绘制散点图 ，前两个参数表示相同长度的数组序列 ，s 表示点的大小， c表示颜色
-    type1 = axes.scatter(type1_x, type1_y, s=20, c='red')
-    type2 = axes.scatter(type2_x, type2_y, s=40, c='green')
-    type3 = axes.scatter(type3_x, type3_y, s=50, c='blue')
-    plt.title(u'标题')
-    plt.xlabel(u'每年飞行里程数')
-    plt.ylabel(u'玩视频游戏所消耗的时间百分比')
-    # loc 设置图例的位置 2是upper left
-    axes.legend((type1, type2, type3), (u'不喜欢', u'魅力一般', u'极具魅力'), loc=2)
-    #     plt.scatter(datingDataMat[:,0],datingDataMat[:,1],c = datingLabels)
-    plt.show()
-
-
 def classifyperson():
-    resultList = ['没感觉', '看起来还行', '极具魅力']
+    resultList = ['输', '平', '赢']
+    #你自己的数据
     # input_man = [20000, 10, 2.8]
     input_man = [17934,0.000000,0.147573]
-    datingDataMat, datingLabels = file2matrix('datingTestSet.txt')
+    datingDataMat, datingLabels = file2matrix('archeyTestSet.txt')
     normMat, ranges, minVals = autoNorm(datingDataMat)
     result = classify((input_man - minVals) / ranges, normMat, datingLabels, 5)
-    print('你即将约会的人是:%s' % resultList[result - 1])
+    print('你这场比赛的预测结果是:%s' % resultList[result - 1])
 
 
 if __name__ == '__main__':
