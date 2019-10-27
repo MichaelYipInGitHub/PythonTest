@@ -86,11 +86,11 @@ def autoNorm(dataSet):
     return normDataSet, ranges, minVals
 
 
-def datingClassM():
+def archeyClassM():
     rate = 0.1
-    datingDataMat, datingLabels = file2matrix('./archeyTestSet.txt')
+    archeyDataMat, archeyLabels = file2matrix('./archeyTestSet.txt')
     # 将数据归一化
-    normMat, ranges, minVals = autoNorm(datingDataMat)
+    normMat, ranges, minVals = autoNorm(archeyDataMat)
     # m 是 ： normMat行数 = 1000
     m = normMat.shape[0]
     #     print 'm =%d 行'%m
@@ -99,10 +99,10 @@ def datingClassM():
     errorCount = 0.0
     for i in range(numTestVecs):
         # normMat[i,:] 取出数据的第i行,normMat[numTestVecs:m,:]取出数据中的100行到1000行 作为训练集，
-        # datingLabels[numTestVecs:m] 取出数据中100行到1000行的类别，4是K
-        classifierResult = classify(normMat[i, :], normMat[numTestVecs:m, :], datingLabels[numTestVecs:m], 4)
-        print('模型预测值: %d ,真实值 : %d' % (classifierResult, datingLabels[i]))
-        if (classifierResult != datingLabels[i]):
+        # archeyLabels[numTestVecs:m] 取出数据中100行到1000行的类别，4是K
+        classifierResult = classify(normMat[i, :], normMat[numTestVecs:m, :], archeyLabels[numTestVecs:m], 4)
+        print('模型预测值: %d ,真实值 : %d' % (classifierResult, archeyLabels[i]))
+        if (classifierResult != archeyLabels[i]):
             errorCount += 1.0
     errorRate = errorCount / float(numTestVecs)
     print('正确率 : %f' % (1 - errorRate))
@@ -114,15 +114,15 @@ def classifyperson():
     #你自己的数据
     # input_man = [20000, 10, 2.8]
     input_man = [17934,0.000000,0.147573]
-    datingDataMat, datingLabels = file2matrix('archeyTestSet.txt')
-    normMat, ranges, minVals = autoNorm(datingDataMat)
-    result = classify((input_man - minVals) / ranges, normMat, datingLabels, 5)
+    archeyDataMat, archeyLabels = file2matrix('archeyTestSet.txt')
+    normMat, ranges, minVals = autoNorm(archeyDataMat)
+    result = classify((input_man - minVals) / ranges, normMat, archeyLabels, 5)
     print('你这场比赛的预测结果是:%s' % resultList[result - 1])
 
 
 if __name__ == '__main__':
     #     createScatterDiagram观察数据的分布情况
     #     createScatterDiagram()
-    acc = datingClassM()
+    acc = archeyClassM()
     if (acc > 0.9):
         classifyperson()
