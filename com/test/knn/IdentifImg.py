@@ -4,7 +4,7 @@ import os
 import numpy as np
 
 # 此方法将每个文件中32*32的矩阵数据，转换到1*1024一行中
-from com.test.knn.KNNDateOnHand import classify
+from com.test.knn.KNNArcheyTest import classify
 
 
 def img2vector(filename):

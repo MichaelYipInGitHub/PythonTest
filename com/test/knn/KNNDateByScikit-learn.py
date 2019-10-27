@@ -3,7 +3,7 @@ import operator
 
 from sklearn.neighbors import NearestNeighbors
 
-from com.test.knn.KNNDateOnHand import file2matrix, autoNorm
+from com.test.knn.KNNArcheyTest import file2matrix, autoNorm
 
 if __name__ == '__main__':
     datingDataMat, datingLabels = file2matrix('datingTestSet.txt')

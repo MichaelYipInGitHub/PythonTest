@@ -9,14 +9,15 @@ public class RGBUtils {
 
     public static void main(String[]args){
         try {
-            BufferedImage bi = ImageIO.read(new File("D:\\workspace\\Utils\\src\\com\\yml\\common\\1.png"));
-            for (int i = 0; i < 50; i++) {
-                String picString = "";
-                for (int j = 0; j < 50; j++) {
+            BufferedImage bi = ImageIO.read(new File("D:\\workspace\\Utils\\src\\com\\yml\\common\\9_1.png"));
+            String picString = "";
+            for (int i = 0; i < 32; i++) {
+                for (int j = 0; j < 32; j++) {
                     picString += getRGB(bi, j, i);
                 }
-                System.out.println(picString);
+                picString += "\r\r\n";
             }
+            System.out.println(picString);
         } catch (IOException e) {
             e.printStackTrace();
         }
